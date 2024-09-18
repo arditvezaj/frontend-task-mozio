@@ -1,43 +1,23 @@
 import { Destination } from "../types/destination";
 
-export const getAllDestinations = async () => {
+export const getAllDestinations = async (): Promise<Destination[]> => {
   const response = await fetch("/Data.json");
-  return await response.json();
+  return response.json();
 };
 
-export const getDestinationsByName = async (searchInput: string) => {
+export const getDestinationsByName = async (
+  searchInput: string
+): Promise<Destination[]> => {
   if (searchInput === "fail") throw new Error("Something went wrong");
 
-  console.log(`getDestinationsByName called with argument: ${searchInput}`);
-
-  const response = await fetch("/Data.json");
-  const destinations = await response.json();
+  const destinations = await getAllDestinations();
 
   const filteredDestinations = destinations.filter((destination: Destination) =>
-    destination.name.toLowerCase().match(searchInput.toLowerCase())
+    destination.name.toLowerCase().includes(searchInput.toLowerCase())
   );
 
   if (filteredDestinations.length) {
     return filteredDestinations;
-  } else {
-    throw new Error("Destination not found");
-  }
-};
-
-export const getDestinationByName = async (searchInput: string) => {
-  if (searchInput === "fail") throw new Error("Something went wrong");
-
-  console.log(`getDestinationByName called with argument: ${searchInput}`);
-
-  const response = await fetch("/Data.json");
-  const destinations = await response.json();
-
-  const filteredDestination = destinations.find((destination: Destination) =>
-    destination.name.toLowerCase().match(searchInput.toLowerCase())
-  );
-
-  if (filteredDestination) {
-    return { data: filteredDestination };
   } else {
     throw new Error("Destination not found");
   }

@@ -2,9 +2,9 @@ import { Destination } from "./destination";
 
 export interface DestinationDetailsProps {
   destination: Destination;
-  destinations: Destination[];
   setDestination: (value: Destination) => void;
+  setSearchInput: (value: string) => void;
   error: string;
-  searchInput: string;
-  isChecked: boolean;
+  selectedDestination: boolean;
+  setSelectedDestination: (value: boolean) => void;
 }

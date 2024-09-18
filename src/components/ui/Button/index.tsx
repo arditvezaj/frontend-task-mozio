@@ -47,7 +47,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(
           buttonVariants({ variant, size, className }),
           cn(
-            "w-full py-6 text-white font-semibold rounded-md bg-green-800 hover:bg-green-700"
+            "py-4 text-white font-bold rounded-lg bg-[#3100a2] hover:bg-[#3100a2]/85 active:scale-95 transition-all duration-300 ease-in-out"
           )
         )}
         ref={ref}

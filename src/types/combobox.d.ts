@@ -8,7 +8,8 @@ export interface ComboboxProps {
   destinations: Destination[];
   setDestinations: (value: Destination[]) => void;
   setIsLoading: (value: boolean) => void;
+  isLoading: boolean;
+  error: string;
   setError: (value: string) => void;
-  isChecked: boolean;
-  setIsChecked: (value: boolean) => void;
+  setSelectedDestination: (value: boolean) => void;
 }

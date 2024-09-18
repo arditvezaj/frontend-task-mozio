@@ -2,24 +2,27 @@ import { useState } from "react";
 import { Destination } from "./types/destination";
 import Combobox from "./components/Combobox";
 import DestinationDetails from "./components/DestinationDetails";
-import Spinner from "./components/ui/Spinner";
 
-const App = () => {
+const initialDestination: Destination = {
+  id: 0,
+  name: "",
+  description: "",
+  country: "",
+  climate: "",
+  currency: "",
+  latitude: 0,
+  longitude: 0,
+};
+
+const App: React.FC = () => {
   const [searchInput, setSearchInput] = useState<string>("");
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-  const [destination, setDestination] = useState<Destination>({
-    id: 0,
-    name: "",
-    description: "",
-    country: "",
-    climate: "",
-    currency: "",
-    latitude: 0,
-    longitude: 0,
-  });
+  const [destination, setDestination] =
+    useState<Destination>(initialDestination);
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string>("");
+  const [selectedDestination, setSelectedDestination] =
+    useState<boolean>(false);
 
   return (
     <div className="flex flex-col justify-center items-center mt-[10rem]">
@@ -30,24 +33,20 @@ const App = () => {
         setDestination={setDestination}
         destinations={destinations}
         setDestinations={setDestinations}
+        isLoading={isLoading}
         setIsLoading={setIsLoading}
+        error={error}
         setError={setError}
-        isChecked={isChecked}
-        setIsChecked={setIsChecked}
+        setSelectedDestination={setSelectedDestination}
       />
-
-      {isLoading || !destination ? (
-        <Spinner />
-      ) : (
-        <DestinationDetails
-          destination={destination}
-          destinations={destinations}
-          setDestination={setDestination}
-          error={error}
-          searchInput={searchInput}
-          isChecked={isChecked}
-        />
-      )}
+      <DestinationDetails
+        destination={destination}
+        setDestination={setDestination}
+        setSearchInput={setSearchInput}
+        error={error}
+        selectedDestination={selectedDestination}
+        setSelectedDestination={setSelectedDestination}
+      />
     </div>
   );
 };
